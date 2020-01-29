@@ -13,7 +13,7 @@ module.exports = function(app){
         transactions.show(req, res);
     })
 
-    app.post('/app/transactions/create/:id', function(req, res) {
+    app.post('/app/transactions/create/:userid/:accountid', function(req, res) {
         //NOTE ID PARAM HERE IS ACCOUNT ID
         transactions.create(req, res);
     })

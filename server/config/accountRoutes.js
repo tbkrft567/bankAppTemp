@@ -1,6 +1,6 @@
 console.log('***ACCOUNT ROUTES***')
 
-const accounts = require('../controllers/accounts.js')
+const accounts = require('../controllers/accounts')
 const authorizeUser = require('../middleware/authorizeUser')
 
 module.exports = function(app){
@@ -18,12 +18,14 @@ module.exports = function(app){
 
     app.post('/app/accounts/checking/create/:id', function(req, res) {
         //NOTE ID PARAM HERE IS USER ID
+        console.log(req.params.id)
         console.log('***CREATE_CHK_ACCOUNT_ROUTE***');
         accounts.createChecking(req, res);
     })
 
     app.post('/app/accounts/savings/create/:id', function(req, res) {
         //NOTE ID PARAM HERE IS USER ID
+    
         console.log('***CREATE_SVG_ACCOUNT_ROUTE***');
         accounts.createSavings(req, res);
     })

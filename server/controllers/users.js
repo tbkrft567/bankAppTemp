@@ -37,20 +37,22 @@ module.exports = {
         //     })
         // User.find()
         // .then(found=>{console.log(found)})
-        console.log(req.body);
+        // console.log(req.body);
         User.find({ email: req.body.email })
             .then(user => {
-                console.log(user)
+                // console.log(user)
                 if (user.length > 0) {
                     return Promise.reject({ unique: "That email already exists." })
                 }
                 else {
                     bcrypt.hash(req.body.password, 10)
                         .then(hashedPassword => {
-                            console.log(hashedPassword)
+                            console.log("***password hashed***")
                             newUser = ({ "firstName": req.body.firstName, "lastName": req.body.lastName, "birthday": req.body.birthday, "email": req.body.email, "password": hashedPassword })
+                            console.log("UserSet")
                             User.create(newUser)
                                 .then(userConfirm => {
+                                    console.log("userconfirmed")
                                     res.json(userConfirm)
                                 })
                                 .catch(err => res.json({ errors: err }))
