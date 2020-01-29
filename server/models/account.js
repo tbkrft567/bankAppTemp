@@ -34,28 +34,24 @@ const AccountSchema = new mongoose.Schema({
     
     const Account = mongoose.model('Account', AccountSchema);
     
-    const Checking = Account.discriminator('checking',
-        new mongoose.Schema({
-        })
-    )
+    const Checking = Account.discriminator('checking', new mongoose.Schema({
+        
+    }))
 
-    const Savings = Account.discriminator('savings',
-        new mongoose.Schema({
+    const Savings = Account.discriminator('savings', new mongoose.Schema({
             interest: {type: Number},
             minimum_balance: {type: Number},
         })
     )
 
-    const Loan = Account.discriminator('loan',
-        new mongoose.Schema({
+    const Loan = Account.discriminator('loan', new mongoose.Schema({
             interest: {type: Number},
             number_of_payments: {type: Number},
             minimum_payment: {type: Number},
         })
     )
 
-    const Credit = Account.discriminator('credit',
-        new mongoose.Schema({
+    const Credit = Account.discriminator('credit', new mongoose.Schema({
             interest: {type: Number},
             points: {type: Number},
             available_credit: {type: Number},

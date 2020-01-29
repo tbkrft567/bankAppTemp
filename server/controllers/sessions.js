@@ -39,8 +39,4 @@ module.exports = {
                { error: err })
          })
    },
-
-   destroy: function (req, res) {
-
-   },
 }

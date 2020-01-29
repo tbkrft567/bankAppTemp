@@ -1,7 +1,7 @@
 console.log('***ACCOUNT ROUTES***')
 
 const accounts = require('../controllers/accounts.js')
-const authorizeUser = require('../middleware/authenticateUser')
+const authorizeUser = require('../middleware/authorizeUser')
 
 module.exports = function(app){
 

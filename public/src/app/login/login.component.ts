@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
       }
       else{
         window.localStorage.setItem("token", data["token"])
-        console.log(window.localStorage)
         this.goToDashboard()
       }
     })

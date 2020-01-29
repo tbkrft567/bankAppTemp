@@ -10,10 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.7",
     "csv-express": "^1.2.2",
     "express": "^4.17.1",
     "express-flash": "0.0.2",
     "express-session": "^1.17.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.9",
     "mongoose-immutable": "0.0.2",
     "mongoose-schema-extend": "^0.2.2",
