@@ -21,31 +21,31 @@ module.exports = {
     },
 
 
-    csv: function(req, res) {
-        
-    const account = Account.find({_id: req.params.id})
-        
-        const filename = "${account.lastFour}"+'_'+"transactions";
+    csv: function (req, res) {
+
+        const account = Account.find({ _id: req.params.id })
+
+        const filename = "${account.lastFour}" + '_' + "transactions";
         const transactions = account.transactions;
 
-            //NOTE .lean() transforms a mongoose document into a javascript array;
+        //NOTE .lean() transforms a mongoose document into a javascript array;
         transactions.lean().exec({}, function (err, transactionList) {
             if (err) res.json(err);
 
             res.setHeader('Content-Type', 'text/csv');
 
-            res.setHeader("Content-Disposition", 'attachment; filename='+filename);
+            res.setHeader("Content-Disposition", 'attachment; filename=' + filename);
 
             res.csv(transactionList, true);
-            
+
         })
     },
 
-    
+
     show: function (req, res) {
         console.log('**CONTROLLER GETONE ***', req.params)
-        Account.findOne({ _id: req.params.id})
-            .then(account => res.json({account: account}))
+        Account.findOne({ _id: req.params.id })
+            .then(account => res.json({ account: account }))
             .catch(err => {
                 console.log("We have an error!", err);
                 for (var key in err.errors) {
@@ -58,18 +58,26 @@ module.exports = {
 
 
     createChecking: function (req, res) {
+        // User.update({_id: req.params.id}, {$set:{accounts: []}})
+        // .then(data => console.log("x"))
         User.findOne({_id: req.params.id})
         .then(user => {
+            console.log(user)
             const account = new Checking()
-            account._user = user;
+            account.accountNumber = Math.floor(Math.random() * 9000000000) + 1000000000;
+            account.accountType = "Checking"
             return account.save()
         })
         .then(account => {
+            console.log('here')
             console.log(account)
             User.findOne({_id: req.params.id})
             .then(user => {
                 user.accounts.push(account);
                 user.save();
+            })
+            .catch(err => {
+                console.log('this is an error')
             })
         })
         .then((newCheckingData) => res.json({message: 'Success', account: newCheckingData}))
@@ -77,60 +85,66 @@ module.exports = {
     },
 
     createSavings: function (req, res) {
-        User.findOne({_id: req.params.id})
-        .then(user => {
-            const account = new Savings()
-            account._user = user;
-            return account.save()
-        })
-        .then(account => {
-            console.log(account)
-            User.findOne({_id: req.params.id})
+        User.findOne({ _id: req.params.id })
             .then(user => {
-                user.accounts.push(account);
-                user.save();
+                console.log()
+                const account = new Savings()
+                account.accountNumber = Math.floor(Math.random() * 9000000000) + 1000000000;
+                account.accountType = "Savings"
+                return account.save()
             })
-        })
-        .then((newSavingsData) => res.json({message: 'Success', account: newSavingsData}))
-        .catch(err => res.json({ errors: err }))
+            .then(account => {
+                console.log(account)
+                User.findOne({ _id: req.params.id })
+                    .then(user => {
+                        user.accounts.push(account);
+                        user.save();
+                    })
+            })
+            .then((newSavingsData) => res.json({ message: 'Success', account: newSavingsData }))
+            .catch(err => res.json({ errors: err }))
     },
 
     createLoan: function (req, res) {
-        User.findOne({_id: req.params.id})
-        .then(user => {
-            const account = new Loan()
-            account._user = user;
-            return account.save()
-        })
-        .then(account => {
-            console.log(account)
-            User.findOne({_id: req.params.id})
+        User.findOne({ _id: req.params.id })
             .then(user => {
-                user.accounts.push(account);
-                user.save();
+                const account = new Loan()
+                numbers = Math.floor(Math.random() * 9000000000) + 1000000000
+                console.log(numbers)
+                account.accountNumber = numbers;
+                account.accountType = "Loan"
+                return account.save()
             })
-        })
-        .then((newLoanData) => res.json({message: 'Success', account: newLoanData}))
-        .catch(err => res.json({ errors: err }))
+            .then(account => {
+                console.log(account)
+                User.findOne({ _id: req.params.id })
+                    .then(user => {
+                        user.accounts.push(account);
+                        user.save();
+                    })
+            })
+            .then((newLoanData) => res.json({ message: 'Success', account: newLoanData }))
+            .catch(err => res.json({ errors: err }))
     },
 
     createCredit: function (req, res) {
-        User.findOne({_id: req.params.id})
-        .then(user => {
-            const account = new Credit()
-            account._user = user;
-            return account.save()
-        })
-        .then(account => {
-            console.log(account)
-            User.findOne({_id: req.params.id})
+        User.findOne({ _id: req.params.id })
             .then(user => {
-                user.accounts.push(account);
-                user.save();
+                const account = new Credit()
+                account.accountNumber = Math.floor(Math.random() * 9000000000) + 1000000000;
+                account.accountType = "CreditCard"
+                return account.save()
             })
-        })
-        .then((newCreditData) => res.json({message: 'Success', account: newCreditData}))
-        .catch(err => res.json({ errors: err }))
+            .then(account => {
+                console.log(account)
+                User.findOne({ _id: req.params.id })
+                    .then(user => {
+                        user.accounts.push(account);
+                        user.save();
+                    })
+            })
+            .then((newCreditData) => res.json({ message: 'Success', account: newCreditData }))
+            .catch(err => res.json({ errors: err }))
     },
 
     update: function (req, res) {
@@ -147,24 +161,25 @@ module.exports = {
                 for (var key in err.errors) {
                     req.flash('registration', err.errors[key].message);
                 }
-                res.json({errors: err});
+                res.json({ errors: err });
             });
     },
 
     destroy: function (req, res) {
         console.log("Destroy_CONTROLLER", req.params);
-        User.findOne({_id: req.params.id})
-        .then(user =>{ (console.log( "***FOUND_DESTROY_PET***", pet))
-            user.remove()
-        })
-        .then(saveresult => res.json(saveresult))
-        .catch(err => {
-            console.log("****ERRROR HERE****");
-            console.log(err);
-            for (var key in err.errors) {
-                req.flash('registration', err.errors[key].message);
-            }
-            res.json({errors: err.errors});
-        });
+        User.findOne({ _id: req.params.id })
+            .then(user => {
+                (console.log("***FOUND_DESTROY_PET***", pet))
+                user.remove()
+            })
+            .then(saveresult => res.json(saveresult))
+            .catch(err => {
+                console.log("****ERRROR HERE****");
+                console.log(err);
+                for (var key in err.errors) {
+                    req.flash('registration', err.errors[key].message);
+                }
+                res.json({ errors: err.errors });
+            });
     },
 }
