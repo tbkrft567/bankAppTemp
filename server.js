@@ -22,7 +22,7 @@ app.use(session({
     saveUninitialized: true,
     cookie: { maxAge: 60000 }
 }))
-
+// new comment
 require('./server/config/mongoose.js');
 require('./server/config/userRoutes.js')(app);
 require('./server/config/sessionRoutes.js')(app);
