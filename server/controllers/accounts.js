@@ -5,8 +5,23 @@ const Checking = require('../models/account.js').Checking;
 const Savings = require('../models/account.js').Savings;
 const Loan = require('../models/account.js').Loan;
 const Credit = require('../models/account.js').Credit;
+const Transaction = require('../models/transaction.js')
 
 module.exports = {
+    test: function(req, res) {
+        // User.update({_id: req.params.id}, {$set: { accounts: [] }})
+        //     .then(result => {
+        //         console.log(result)
+        //     })
+        //     .catch(err => console.log(err))
+
+        User.remove()
+            .then(result => {
+                res.json(result)
+            })
+            .catch(err => console.log(err))
+    },
+
     index: function (req, res) {
         // console.log("*****CONTROLLER******")
         // Account.find()
@@ -90,21 +105,26 @@ module.exports = {
     createSavings: function (req, res) {
         User.findOne({ _id: req.params.id })
             .then(user => {
-                console.log()
+
+                console.log(user)
                 const account = new Savings()
+                console.log(account, "*******")
+                account.interest = req.body.interest
+                account.minimum_balance = req.body.minimum_balance
                 account.accountNumber = Math.floor(Math.random() * 9000000000) + 1000000000;
                 account.accountType = "Savings"
                 return account.save()
             })
             .then(account => {
-                console.log(account)
                 User.findOne({ _id: req.params.id })
                     .then(user => {
                         user.accounts.push(account);
                         user.save();
+                        res.json(user)
                     })
+                    .catch(err => {console.log(err)})
             })
-            .then((newSavingsData) => res.json({ message: 'Success', account: newSavingsData }))
+            // .then((newSavingsData) => res.json({ message: 'Success', account: newSavingsData }))
             .catch(err => res.json({ errors: err }))
     },
 

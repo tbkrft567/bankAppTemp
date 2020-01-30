@@ -41,23 +41,23 @@ const AccountSchema = new mongoose.Schema({
     }))
 
     const Savings = Account.discriminator('savings', new mongoose.Schema({
-            interest: {type: Number, default: 0},
-            minimum_balance: {type: Number, default: 0},
+            interest: {type: Number},
+            minimum_balance: {type: Number},
         })
     )
 
     const Loan = Account.discriminator('loan', new mongoose.Schema({
-            interest: {type: Number, default: 1.3},
-            number_of_payments: {type: Number, default: 120},
-            minimum_payment: {type: Number, default: 25},
+            interest: {type: Number},
+            number_of_payments: {type: Number},
+            minimum_payment: {type: Number},
         })
     )
 
     const Credit = Account.discriminator('credit', new mongoose.Schema({
-            interest: {type: Number,default: 1.3},
-            points: {type: Number, default: 1500},
-            available_credit: {type: Number, default: 3500},
-            minimum_payment: {type: Number, default: 25}
+            interest: {type: Number},
+            points: {type: Number},
+            available_credit: {type: Number},
+            minimum_payment: {type: Number}
         })
     )
 
