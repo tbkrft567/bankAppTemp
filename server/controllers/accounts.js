@@ -8,19 +8,19 @@ const Credit = require('../models/account.js').Credit;
 const Transaction = require('../models/transaction.js')
 
 module.exports = {
-    test: function(req, res) {
-        // User.update({_id: req.params.id}, {$set: { accounts: [] }})
-        //     .then(result => {
-        //         console.log(result)
-        //     })
-        //     .catch(err => console.log(err))
+    // test: function(req, res) {
+    //     // User.update({_id: req.params.id}, {$set: { accounts: [] }})
+    //     //     .then(result => {
+    //     //         console.log(result)
+    //     //     })
+    //     //     .catch(err => console.log(err))
 
-        User.remove()
-            .then(result => {
-                res.json(result)
-            })
-            .catch(err => console.log(err))
-    },
+    //     User.remove()
+    //         .then(result => {
+    //             res.json(result)
+    //         })
+    //         .catch(err => console.log(err))
+    // },
 
     index: function (req, res) {
         // console.log("*****CONTROLLER******")
@@ -108,6 +108,7 @@ module.exports = {
 
                 console.log(user)
                 const account = new Savings()
+                Savings.create()
                 console.log(account, "*******")
                 account.interest = req.body.interest
                 account.minimum_balance = req.body.minimum_balance
