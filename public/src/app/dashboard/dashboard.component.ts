@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  user: {}
 
   constructor(
     private _httpService: HttpService,
@@ -17,6 +18,17 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.user = window.localStorage.getItem("token")
+    console.log(this.user)
+  }
+
+  getUser() {
+    let tempObservable = this._httpService.loginUserSRV(this.user)
+    tempObservable.subscribe(data => {
+      console.log("Got logged user, ts file", data);
+      this.user = data;
+      console.log(this.user)
+    });
   }
 
   logout(){
