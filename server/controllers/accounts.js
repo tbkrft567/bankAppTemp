@@ -8,16 +8,19 @@ const Credit = require('../models/account.js').Credit;
 
 module.exports = {
     index: function (req, res) {
-        console.log("*****CONTROLLER******")
+        // console.log("*****CONTROLLER******")
+        // Account.find()
+        //     .then(data => res.json({ pets: data }))
+        //     .catch(err => {
+        //         console.log("We have an error!", err);
+        //         for (var key in err.errors) {
+        //             req.flash('registration', err.errors[key].message);
+        //         }
+        //         res.json(err.errors[key].message);
+        //     });
         Account.find()
-            .then(data => res.json({ pets: data }))
-            .catch(err => {
-                console.log("We have an error!", err);
-                for (var key in err.errors) {
-                    req.flash('registration', err.errors[key].message);
-                }
-                res.json(err.errors[key].message);
-            });
+            .then(result = console.log('All Accounts'))
+            .catch(err = console.log('All Errors'))
     },
 
 
