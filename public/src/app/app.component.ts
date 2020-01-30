@@ -24,6 +24,6 @@ export class AppComponent implements OnInit {
     }
 
     goLogin() {
-      this._router.navigate(['/login'])
+      this._router.navigate(['/dashboard/home'])
     }
   }

@@ -40,9 +40,11 @@ a.navbar-brand{
 }
 .container-fluid{
     padding: 40px 120px;
-    background-color: #e6f2fd;
-    background-size: cover;
+    /* background-color: #e6f2fd; */
+    /* background-size: cover; */
     min-height: 1000px;
+    background-repeat: no-repeat;
+    background-size: auto;
 }
 
 .login{

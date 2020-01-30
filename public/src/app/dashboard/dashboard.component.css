@@ -49,12 +49,13 @@ a.navbar-brand{
     min-height: 1000px;
 }
 .col-md-8{
-    padding: 0px 30px;
+    padding-right: 40px;
 }
-/* form{
-    width: 200px;
-} */
 h4{
     font-weight: normal;
     margin-bottom: 20px;
+}
+.btn.btn-link{
+    color: white;
+    letter-spacing: 1pt;
 }
