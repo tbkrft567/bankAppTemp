@@ -10,7 +10,7 @@ const transactions = require('../models/transaction.js');
 const AccountSchema = new mongoose.Schema({
     
     accountNumber: {type: Number,
-        immutable: true
+        // immutable: true
     },
         
         balance: { type: Number, default: 0 },
@@ -20,9 +20,9 @@ const AccountSchema = new mongoose.Schema({
     )
     
     
-    AccountSchema.pre('save', function(next) {
-        this.accountNumber = Math.floor(Math.random() * 9000000000) + 1000000000;
-    })
+    // AccountSchema.pre('save', function(next) {
+    //     this.accountNumber = Math.floor(Math.random() * 9000000000) + 1000000000;
+    // })
 
     // //TODO  NEEDS TO BE TESTED
     AccountSchema.virtual('lastFour').get(function() {

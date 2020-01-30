@@ -1,6 +1,6 @@
 console.log('***USER_MODEL***');
 
-const accounts = require('../models/account.js');
+const accounts = require('../models/account.js').Account;
 require('mongoose-type-email');
 
 const mongoose = require('mongoose')
