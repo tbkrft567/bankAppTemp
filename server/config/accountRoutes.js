@@ -61,4 +61,8 @@ module.exports = function(app){
         console.log("**CSV_ACCOUNT_ROUTE**")
         accounts.csv(req, res);
     })
+
+    app.get('/tester/:userid/:accountid', function(req, res, next){
+        accounts.test(req, res);
+    })
 }
