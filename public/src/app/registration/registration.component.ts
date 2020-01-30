@@ -28,7 +28,7 @@ export class RegistrationComponent implements OnInit {
       if (data['errors']){
         // console.log("There are errors")
         this.errors = data['errors']
-        console.log(data['errors'])
+        // console.log(data['errors'])
       } else {
         // console.log("There are NO errors")
         console.log(data, "UserCreated");

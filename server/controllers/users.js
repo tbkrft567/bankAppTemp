@@ -31,13 +31,6 @@ module.exports = {
     },
 
     create: function (req, res) {
-        // User.remove()
-        //     .then(removed => {
-        //         console.log(removed)
-        //     })
-        // User.find()
-        // .then(found=>{console.log(found)})
-        // console.log(req.body);
         User.find({ email: req.body.email })
             .then(user => {
                 // console.log(user)
@@ -62,11 +55,6 @@ module.exports = {
             })
             .catch(err => {
                 console.log("****USER CREATED ERROR****");
-                // console.log(err);
-                // for (var key in err.errors) {
-                //     req.flash('registration', err.errors[key].message);
-                // }
-                // console.log("***ERRORS HERE ***", err)
                 res.json({ errors: err });
             });
     },
