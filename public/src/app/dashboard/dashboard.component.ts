@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.user = window.localStorage.getItem("token")
-    console.log(this.user)
+    console.log(this.user, '******')
   }
 
   getUser() {

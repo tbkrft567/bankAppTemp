@@ -24,11 +24,12 @@ export class LoginComponent implements OnInit {
     let observable = this._httpService.loginUserSRV(this.user)
     observable.subscribe(data => {
       if("errors" in data){
-        console.log(data)
+        console.log("Error Data", data)
         this.ngOnInit()
       }
       else{
         window.localStorage.setItem("token", data["token"])
+        console.log(window.localStorage.getItem("token"))
         this.goToDashboard()
       }
     })
