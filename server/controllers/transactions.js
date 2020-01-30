@@ -43,6 +43,13 @@ module.exports = {
                             Account.update({},{})
                             .then({})
                             .catch({})
+                            // Account.update({_id: req.params.accountid}, {$push: {transactions: transaction })
+                            //     .then(tranConfirmation => {
+                            //         console.log(tranConfirmation)
+                            //     })
+                            //     .catch(err => {
+                            //         console.log(err)
+                            //     })
                             })
                         .catch(err => console.log(err))
                         

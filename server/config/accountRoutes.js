@@ -10,6 +10,11 @@ module.exports = function(app){
         console.log('GET_ALL_ACCOUNTS_ROUTE')
         accounts.index(req, res);
     })
+    app.get('/app/accounts/index', function(req, res) {
+        //NOTE ID PARAM HERE IS USER ID
+        console.log('GET_ALL_ACCOUNTS_ROUTE')
+        accounts.index(req, res);
+    })
 
     app.get('/app/accounts/:id', function(req, res) {
         console.log("***GET_ONE_ACCOUNT_ROUTE***", req.params.id);
