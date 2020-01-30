@@ -1,7 +1,7 @@
 console.log('****CONTROLLERS*****');
 
 const User = require('../models/user.js');
-const Account = require('../models/account.js');
+const Account = require('../models/account.js').Account;
 const Transaction = require('../models/transaction');
 
 module.exports = {
@@ -34,42 +34,28 @@ module.exports = {
 
     create: function (req, res) {
         console.log(req.body);
-        User.findOne({_id: req.params.userid})
-            .then(user => {
-                for(var i = 0; i < user.accounts.length; i++){
-                    if(user.accounts[i]._id == req.params.accountid){
-                        Transaction.create(req.body)
-                        .then(transaction => {
-                            Account.update({},{})
-                            .then({})
-                            .catch({})
-                            // Account.update({_id: req.params.accountid}, {$push: {transactions: transaction })
-                            //     .then(tranConfirmation => {
-                            //         console.log(tranConfirmation)
-                            //     })
-                            //     .catch(err => {
-                            //         console.log(err)
-                            //     })
-                            })
-                        .catch(err => console.log(err))
-                        
-                    }
-                }
-            })
+
+        const newTran = new Transaction()
+        newTran.amount = req.body.amount
+        newTran.date = req.body.date
+        newTran.type = req.body.type
+        newTran.location = req.body.location
+        newTran.save()
+            .then(newTrans =>
+                User.findOne({_id: req.params.userid})
+                    .then( user => {
+                        const account = user.accounts
+                        for(var i = 0; i < account.length; i++){
+                            if(account[i]._id == req.params.accountid){
+                                account[i].transactions.push(newTrans)
+                                user.save()
+                                res.json(user)
+                            }
+                        }
+                    })
+                    .catch(err => {console.log(err)})
+                )
             .catch(err => console.log(err))
-
-        
-
-            // .then(data => { console.log(data); res.json(data) })
-            // .catch(err => {
-            //     console.log("**TRANSACTION_CREATE_ERROR**");
-            //     console.log(err);
-            //     for (var key in err.errors) {
-            //         req.flash('registration', err.errors[key].message);
-            //     }
-            //     console.log("***ERRORS HERE ***", err)
-            //     res.json({ errors: err });
-            // });
     },
 
     update: function (req, res) {
