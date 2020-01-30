@@ -1,10 +1,10 @@
 console.log('****CONTROLLERS*****');
 const User = require('../models/user.js');
-const Account = require('../models/account.js');
-const Checking = require('../models/account.js');
-const Savings = require('../models/account.js');
-const Loan = require('../models/account.js');
-const Credit = require('../models/account.js');
+const Account = require('../models/account.js').Account;
+const Checking = require('../models/account.js').Checking;
+const Savings = require('../models/account.js').Savings;
+const Loan = require('../models/account.js').Loan;
+const Credit = require('../models/account.js').Credit;
 
 module.exports = {
     index: function (req, res) {
@@ -130,7 +130,7 @@ module.exports = {
     createCredit: function (req, res) {
         User.findOne({ _id: req.params.id })
             .then(user => {
-                const account = new Credit()
+                const account = new Credit(interest=.2)
                 account.accountNumber = Math.floor(Math.random() * 9000000000) + 1000000000;
                 account.accountType = "CreditCard"
                 return account.save()
